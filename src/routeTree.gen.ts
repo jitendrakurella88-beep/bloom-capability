@@ -15,6 +15,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LearningMaterialsRouteImport } from './routes/learning-materials'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
 import { Route as SkillGapRouteImport } from './routes/skill-gap'
 
 const IndexRoute = IndexRouteImport.update({
@@ -47,6 +48,11 @@ const ProfileRoute = ProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoadmapRoute = RoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SkillGapRoute = SkillGapRouteImport.update({
   id: '/skill-gap',
   path: '/skill-gap',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/roadmap': typeof RoadmapRoute
   '/skill-gap': typeof SkillGapRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/roadmap': typeof RoadmapRoute
   '/skill-gap': typeof SkillGapRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/roadmap': typeof RoadmapRoute
   '/skill-gap': typeof SkillGapRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/learning-materials'
     | '/login'
     | '/profile'
+    | '/roadmap'
     | '/skill-gap'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/learning-materials'
     | '/login'
     | '/profile'
+    | '/roadmap'
     | '/skill-gap'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/learning-materials'
     | '/login'
     | '/profile'
+    | '/roadmap'
     | '/skill-gap'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   LearningMaterialsRoute: typeof LearningMaterialsRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
+  RoadmapRoute: typeof RoadmapRoute
   SkillGapRoute: typeof SkillGapRoute
 }
 
@@ -165,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/roadmap': {
+      id: '/roadmap'
+      path: '/roadmap'
+      fullPath: '/roadmap'
+      preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/skill-gap': {
       id: '/skill-gap'
       path: '/skill-gap'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearningMaterialsRoute: LearningMaterialsRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
+  RoadmapRoute: RoadmapRoute,
   SkillGapRoute: SkillGapRoute,
 }
 export const routeTree = rootRouteImport
