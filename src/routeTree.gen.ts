@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as LearningMaterialsRouteImport } from './routes/learning-materials'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProfileRouteImport } from './routes/profile'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearningMaterialsRoute = LearningMaterialsRouteImport.update({
+  id: '/learning-materials',
+  path: '/learning-materials',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -38,12 +44,14 @@ const ProfileRoute = ProfileRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
@@ -51,20 +59,28 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
+  '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/login' | '/profile'
+  fullPaths: '/' | '/dashboard' | '/learning-materials' | '/login' | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/login' | '/profile'
-  id: '__root__' | '/' | '/dashboard' | '/login' | '/profile'
+  to: '/' | '/dashboard' | '/learning-materials' | '/login' | '/profile'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/learning-materials'
+    | '/login'
+    | '/profile'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
+  LearningMaterialsRoute: typeof LearningMaterialsRoute
   LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
 }
@@ -83,6 +99,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learning-materials': {
+      id: '/learning-materials'
+      path: '/learning-materials'
+      fullPath: '/learning-materials'
+      preLoaderRoute: typeof LearningMaterialsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -105,6 +128,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
+  LearningMaterialsRoute: LearningMaterialsRoute,
   LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
 }
