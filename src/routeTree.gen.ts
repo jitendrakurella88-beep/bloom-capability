@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssessmentRouteImport } from './routes/assessment'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as LearningMaterialsRouteImport } from './routes/learning-materials'
 import { Route as LoginRouteImport } from './routes/login'
@@ -18,6 +19,11 @@ import { Route as ProfileRouteImport } from './routes/profile'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssessmentRoute = AssessmentRouteImport.update({
+  id: '/assessment',
+  path: '/assessment',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -43,6 +49,7 @@ const ProfileRoute = ProfileRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
   '/dashboard': typeof DashboardRoute
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
   '/dashboard': typeof DashboardRoute
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assessment': typeof AssessmentRoute
   '/dashboard': typeof DashboardRoute
   '/learning-materials': typeof LearningMaterialsRoute
   '/login': typeof LoginRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/learning-materials' | '/login' | '/profile'
+  fullPaths:
+    | '/'
+    | '/assessment'
+    | '/dashboard'
+    | '/learning-materials'
+    | '/login'
+    | '/profile'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/learning-materials' | '/login' | '/profile'
+  to:
+    | '/'
+    | '/assessment'
+    | '/dashboard'
+    | '/learning-materials'
+    | '/login'
+    | '/profile'
   id:
     | '__root__'
     | '/'
+    | '/assessment'
     | '/dashboard'
     | '/learning-materials'
     | '/login'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssessmentRoute: typeof AssessmentRoute
   DashboardRoute: typeof DashboardRoute
   LearningMaterialsRoute: typeof LearningMaterialsRoute
   LoginRoute: typeof LoginRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assessment': {
+      id: '/assessment'
+      path: '/assessment'
+      fullPath: '/assessment'
+      preLoaderRoute: typeof AssessmentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssessmentRoute: AssessmentRoute,
   DashboardRoute: DashboardRoute,
   LearningMaterialsRoute: LearningMaterialsRoute,
   LoginRoute: LoginRoute,
